@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible",content="IE=edge")
+    meta(name="viewport",content="width=device-width, initial-scale=1")
+    title チャットアプリ
+    link(rel="stylesheet",href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7",crossorigin="anonymous")
+    link(rel="stylesheet",href="/css/style.css")
+  body
+    .app-wrap
+      header
+        h1.h4.page-title チャット
+      main
+        //- #alert_box.alert-area
+          .container
+            .row
+              .col-xs-12
+                <div class="alert alert-{{ class }}" role="alert">{{ text }}</div>
+        #login_box
+          .container
+            .row
+              .col-xs-12
+                form#loginForm
+                  .form-group.input-chat
+                    label(for="loginInputMail") メールアドレス
+                    input#loginInputMail.form-control(name="mail",type="email",placeholder="メールアドレス")
+                  .form-group.input-chat
+                    label(for="loginInputPassword") パスワード
+                    input#loginInputPassword.form-control(name="password",type="password",placeholder="パスワード")
+                  button#login-btn.btn.btn-primary(style="margin-right:1rem") ログイン
+                  button#regist-btn.btn.btn-default 新規登録
+        #message_box.chat-area
+          .container
+            .row
+              .col-xs-12
+                dl.chat-list
+                  template(v-for="message in messages")
+                    dt.chat-meta(v-show="!message.is_mine && checkUserOverlap($index)")
+                      .img
+                        img(src="http://placehold.it/48x48")
+                      p.name {{ message.name }}
+                    dd.chat-content(v-bind:class="{'is-mine':message.is_mine}")
+                      p.text {{ message.text }}
+    script(src="//code.jquery.com/jquery-2.0.0.min.js",integrity="sha256-1IKHGl6UjLSIT6CXLqmKgavKBXtr0/jJlaGMEkh+dhw=",crossorigin="anonymous")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js")
+    script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js",integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS",crossorigin="anonymous")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.min.js")
+    script(src="/js/login.js")
